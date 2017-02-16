@@ -1,0 +1,14 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}Вы получили это письмо потому что запросили восстановление пароля с сайта {{ site_name }}.{% endblocktrans %}
+
+{% trans "Пожалуйста проследуйте по ссылке для для восстановления пароля:" %}
+{% block reset_link %}
+{{ protocol }}://{{ site_name }}{% url 'shop:password_reset_confirm' uidb64=uid token=token %}
+{% endblock %}
+{% trans "Ваше имя пользователя:" %} {{ user.get_username }}
+
+{% trans "Спасибо что вы с нами!" %}
+
+{% blocktrans %}Команда {{ site_name }}{% endblocktrans %}
+
+{% endautoescape %}

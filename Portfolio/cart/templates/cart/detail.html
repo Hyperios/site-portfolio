@@ -1,0 +1,73 @@
+{% extends "shop/base.html" %}
+
+
+{% block content %}
+<div>
+  <h1>Ваша корзина товаров</h1>
+  {% if error_message %}
+	<h3>{{ error_message }}</h3>
+  {% endif %}
+
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>Изображение</th>
+        <th>Продукт</th>
+        <th> + 1</th>
+        <th>Количество</th>
+        <th> - 1</th>
+        <th>Полная цена</th>
+        <th>Цена</th>
+        <th>Удалить</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr>
+            <td>
+              <a href="{{ product.get_absolute_url }}">
+                <img src="{{ product.image.url }}" alt="" />
+              </a>
+            </td>
+            <td>{{ product.name_model }}</td>
+            <th>
+              <div id="col_item" 
+                   add_one="+1" 
+                   ids="{{ product.ids }}"
+                   urls="{% url 'cart:add_one_or_remove' %}"> 
+                +
+              </div>
+            </th>
+            <td>
+              <span id="opt{{ product.ids }}">{{ item.quantity }}</span>&nbsp;(Max. {{ product.available }})
+            </td>
+            <th>
+              <div id="col_item" 
+                   add_one="-1" 
+                   ids="{{ product.ids }}" 
+                   urls="{% url 'cart:add_one_or_remove' %}"> 
+                -
+              </div>
+            </th>
+            <td class="num">{{ item.price }} руб.</td>
+            <td class="num"><span id="total_price{{ product.ids }}">{{ item.total_price }}</span> руб.</td>
+            <td><a href="{% url "cart:CartRemove" product.ids %}">Удалить</a></td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+        <tr class="total">
+          <td>Итого</td>
+          <td colspan="2"></td>
+          <td class="num"><span id="cart_total_item">{{ cart.get_total_item }}</span></td> 
+          <td colspan="2"></td>
+          <td class="num"><span id="cart_total_price2">{{ cart.get_total_price }}</span> руб.</td>          
+        </tr>
+    </tbody>
+  </table>
+  <p class="text-right">
+    <a href="{% url "shop:photo" %}">Продолжить Шопинг</a>
+    <a href="{% url "orders:OrderCreate" %}">Оформить заказ</a>
+  </p>
+</div>
+{% endblock %}

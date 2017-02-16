@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{% static 'shop/java/carhartl/jquery.cookie.js' %}"></script>
+
+    <script src="{% static 'shop/java/scripts.js' %}"></script>
+
+    <meta charset="UTF-8">
+    
+    <title>{% block title %}Сайт-портфолио{% endblock %}</title>
+
+    {% block javascript %}  
+    {% endblock %}
+</head>
+<body>
+    <header>       
+        <div class='heads'>
+            <div class="logo_field">
+            </div>
+            <div id="base_cart">
+                <div class="cart_order">
+                    <div id="cart_price">В корзине 
+                        <span id="cart_count">{{ cart_total_item }}</span> товаров
+                    </div>
+                    <div id="cart_number">На сумму
+                        <span id="cart_total_price">{{ cart_total_price }}</span> руб.
+                    </div> 
+                </div>
+                <div class='cart_image' >
+                    <a id="get_order" href="{% url 'cart:CartDetail' %}"><img src="{% static 'shop/images/cart.png' %}" style="width: 40px; height: 40px; float:left; margin-right: 5px;">
+                    <div>Оформить заказ</div></a>
+                    <div><a id="remove_price" urls="{% url 'cart:remove_all' %}">Очистить корзину</a></div>
+                </div>   
+            </div>
+            {% if not user.is_authenticated %}
+            <div class='user_field'>
+                {% if messages %}
+                    <div id="messages" class="messages">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>    
+                {% endif %}
+                <div id="login_in">Вход</div> 
+                <div id="login_form" class="hide">
+                    <form method="post" action="{% url 'shop:login' %}">
+                            {% csrf_token %}
+                            <label for="username">
+                                Логин:&nbsp;&nbsp;<input type="text" id="username" name="username" size="19">
+                            </label>
+                            <br>
+                            <label for="password">
+                                Пароль:<input type="password" id="password" name="password" size="19">
+                            </label>
+                            <br>
+                            <input class="login_submit" type="submit" value="Войти">
+                    </form>
+                </div>
+                <a class="signup" href="{% url 'shop:register_user' %}">
+                    <div>Регистрация</div>
+                </a>
+                <a class="remember" href="{% url 'shop:password_restart' %}">
+                    <div>Восстановить пароль</div>
+                </a>             
+            </div>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <div class='user_field'>
+                    Добро пожаловать {{ user.username }} <a href="{% url 'shop:logout' %}">Выйти</a>
+                </div>
+            {% endif %} 
+        </div>
+    </header>
+    {% block menu %}
+        <div class="menu">
+            <div class="wrapper_menu">
+                <a href="{% url 'shop:shop' %}"><div>Главная</div></a>  
+                <a href="{% url 'shop:photo' %}"><div>Каталог</div></a>
+                <a href=""><div>Другой раздел</div></a>
+                <a href=""><div>Доставка</div></a>
+                <a href=""><div>Контакты</div></a>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="wrapper_body">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+{% extends "shop/base.html" %}
+
+{% block javascript %}
+  
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+<form class="form-signup" action="{% url 'shop:register_user' %}" method="post">
+	{% csrf_token %}
+	<h2>Регистрация</h2>
+	<label>Имя: <br>
+		{{ form.first_name }}
+	</label>
+	<br>
+	<label>Фамилия: <br>
+		{{ form.last_name }}
+		
+	</label>
+	<br>
+	<label>E-mail: {{ form.email.errors }}<br>
+		{{ form.email }}
+		
+	</label>
+	<br>
+	<label>Ник: {{form.errors.values.0}}<br>
+		{{ form.username }}
+	</label>
+	<br>
+	<label>Пароль: {{form.errors.values.1}}<br>
+		{{ form.password1 }}
+	</label>
+	<br>
+	<label>Пароль: Пароль ещё раз<br>
+		{{ form.password2 }}
+	</label>
+	<br>
+	<input type="submit" value="Зарегистрироваться">
+</form>
+
+
+{% endblock %}
