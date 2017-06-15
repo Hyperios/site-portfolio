@@ -1,20 +1,93 @@
 {% extends "shop/base.html" %}
+{% load staticfiles %} {% load cache %}
 {% block content %}
-<div class="general">
-	<h2>Добро пожаловать на сайт-портфолио, меня зовут Кирилл Уваров.</h2>
-	<br>
-	<p>Этот сайт создан с целью продемонстрировать мои навыки в разработке приложений, в данном случае интернет магазина.</p>
-	<p>Здесь вы можете найти интересущие вас товары, отфильтровав характеристики, добавить товары в корзину, отредактировать количество товаров на странице заказа, а так же совершить сам заказ, получив соответствующее уведомление по почте.</p>
-	<p>В качестве дополнения вы можете зарегистрироваться на сайте под своим именем, получив письмо с подтверждением регистрации. А также сбросить пароль если вы его забыли или в качестве тестирования.</p>
-	<br>
-	<br>
-	<h3>Какие технологии были использованы:</h3>
-	<ul>
-		<li>Данный сайт написан на Django Framework/Python</li>
-		<li>Используется реляционная база данных PostgeeSQL</li>
-		<li>Для отображения корзины использованы JavaScript, библиотека JQuery и технология Ajax/POST</li>
-		<li>Асинхронная отправка сообщений Celery(менеджер RabbitMQ)</li>
-		<li>Более подробное описание на репозитории</li>
-	</ul>
+{% cache 300 main %}
+<div class="banner">
+    <div class="container">
+        <div class="banner-text-left">
+            <h2 class="hdng"><span>Кирилл Уваров</span> <br />
+                      Full stack Web-developer</h2>
+            <p>
+                Работаю с такими известными фраэймворками как Django, Flask, Bottle, базами данных PostgreSQL, MySQL. Имею специальные сертификаты соответствия, также подтверждением моих навыков является данный сайт. При создании данного сайта использовались такие технологии и языки как JavaScript, JQuery, AJAX, Nginx, Gunicorn, RabbitMQ, Redis, Celery и Memcached. <br /> 
+                На данном сайте в качестве теста вы можете зарегистрироваться и купить товары.
+            </p>
+        </div>
+        <div class="banner-text-right">
+            <img src="{% static 'shop/images/2.png' %}" />
+        </div>
+    </div>
 </div>
+<div class="package">
+    <div class="container">
+        <div class="package-main">
+            <div class="pack-top">
+                <h3>Что предлагаю</h3>
+            </div>
+            <div class="pack-bottom">
+                <div class="col-md-3 package-grid">
+                    <img src="{% static 'shop/images/p1.jpg' %}" alt="" class="img-responsive">
+                    <h4>Современные технологии</h4>
+                    <p>Стандарты международного рынка, равнение на лучших</p>
+                </div>
+                <div class="col-md-3 package-grid">
+                    <img src="{% static 'shop/images/p2.jpg' %}" alt="" class="img-responsive">
+                    <h4>Поддержка проектов</h4>
+                    <p>Оптимизация и доработка</p>
+                </div>
+                <div class="col-md-3 package-grid">
+                    <img src="{% static 'shop/images/p3.jpg' %}" alt="" class="img-responsive">
+                    <h4>Индивидуальный подход</h4>
+                    <p>Учет нюансов и требований</p>
+                </div>
+                <div class="col-md-3 package-grid">
+                    <img src="{% static 'shop/images/p4.jpg' %}" alt="" class="img-responsive">
+                    <h4>Документация и автоматизация</h4>
+                    <p>Для последующей поддержки проекта</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="welcome">
+    <div class="pack-top">
+        <h3>К чему стремлюсь</h3>
+    </div>
+    <div class="welcome-main">
+        <div class="col-md-6 welcome-left">
+            <div class="wel-text">
+                <h3>Интересные проекты</h3>
+                <p>Интересно проводить время и получать за это деньги - лучшая мотивация. Вызовы и головоломки делают нас сильнее.</p>
+            </div>
+        </div>
+        <div class="col-md-6 welcome-right">
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="trip">
+    <div class="trip-main">
+        <div class="col-md-6 trip-left">
+        </div>
+        <div class="col-md-6 trip-right">
+            <h3>Новые технологии</h3>
+            <p>Прогресс не стоит на месте, потому для меня важно быть в курсе современных технологий и использовать их в проектах, это рождает новые идеи и оживляет старые.</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="welcome">
+    <div class="welcome-main">
+        <div class="col-md-6 welcome-left">
+            <div class="wel-text">
+                <h3>Команда</h3>
+                <p>Как пирамиды не строились одним человеком, так и командная работа позволяет достигать более сложных и масштабных целей.</p>
+            </div>
+        </div>
+        <div class="col-md-6 welcome-right2">
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+{% endcache %}
 {% endblock %}

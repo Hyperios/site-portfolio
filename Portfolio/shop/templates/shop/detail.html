@@ -1,25 +1,22 @@
-{% extends "shop/base.html" %}
-{% block content %}
-		<div class="detail_position">
-			<div><h1>{{ phototech.name_model }}</h1></div>
-			<div><img src="{{ phototech.image_url }}"></div>
-			<div>{{ phototech.price}} Руб.</div>
-			<div id="add_to_cart" class="button_buy">
-                            {% csrf_token %}
-                            <div style="display:none;" id="data_buy"  
-                            product_id="{{ phototech.ids }}" 
-                            product_price="{{ phototech.price }}" 
-                            url="{% url 'cart:add_product_front' %}"></div>
-                            Купить
-            </div>
-			<div>
-				{% if phototech.available  > 0 %}В наличии{% endif %}
-				{% if phototech.available  == 0 %}Нет в наличии{% endif %}
-			</div>
-			<div>Разрешение матрицы {{ phototech.matrix_resol }}</div>
-			<div>Максимальное разрешение {{ phototech.max_resol }}</div>
-			<div>Зум {{ phototech.zoom  }}</div>
-			<div>Цвет {{ phototech.color  }}</div>
-			<div>Страна производитель {{ phototech.country   }}</div>
-		</div>
+{% extends "shop/base.html" %} {% block content %}
+<div class="container">
+    <h2>{{ phototech.name_model }}</h2>
+    <img src="{{ phototech.image_url }}">
+
+    <p>Цена: {{ phototech.price}} Руб.</p>
+    {% csrf_token %}
+    <div id="add_to_cart" class="item_add" product_id="{{ phototech.ids }}" product_price="{{ phototech.price }}" url="{% url 'cart:add_product_front' %}">Купить</div>
+
+<p>
+    {% if phototech.available > 0 %}В наличии{% endif %} {% if phototech.available == 0 %}Нет в наличии{% endif %}
+</p>
+<p>Описание: {{ phototech.text_prev }}</p>
+
+<p>Разрешение матрицы: {{ phototech.matrix_resol }}</p>
+<p>Максимальное разрешение: {{ phototech.max_resol }}</p>
+<p>Зум: {{ phototech.zoom }}</p>
+<p>Цвет: {{ phototech.color }}</p>
+<p>Страна производитель: {{ phototech.country }}</p>
+
+</div>
 {% endblock %}

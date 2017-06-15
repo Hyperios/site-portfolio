@@ -1,158 +1,165 @@
-{% extends "shop/base.html" %}
-{% block content %}
-    <div class="filter clearfix">
-		<form method="post" name='position_filter'>
-			{% csrf_token %}
-            <div class="filter_choice_block">
-                <h4>Зум:</h4>
-                {% for i in filter_fields.zoom %}
-                    <label id="checker" class="deactive_checker">
-                        <input type="checkbox" name='zoom' id='zoom' value='{{ i }}'>
-                        <span>{{ i }}</span>
-                    </label>
-                {% endfor %}
+{% extends "shop/base.html" %} {% block content %}
+{% load cache %}
+<div class="container">
+    <div class="product_main">
+        {% cache 300 photo_filter %}
+        <div class="col-md-3 s-d">
+            <div class="w_sidebar">
+                <form method="POST" name='position_filter' id="filter_photo" action="{% url 'shop:photo' %}">
+                    {% csrf_token %}
+                    <section class="sky-form">
+                        <h4>Зум:</h4>
+                        <div class="row1 scroll-pane">
+                            <div class="col col-4">
+                                {% for i in filter_fields.zoom %}
+                                <label id="checker" class="deactive_checker checkbox">
+                                    <input type="checkbox" name='zoom' id='zoom' value='{{ i }}'>
+                                    <i></i><span>{{ i }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    <section class="sky-form">
+                        <h4>Цвет:</h4>
+                        <div class="row1 scroll-pane">
+                            <div class="col col-4">
+                                {% for i in filter_fields.color %}
+                                <label id="checker" class="deactive_checker checkbox">
+                                    <input type="checkbox" name='color' id='color' value='{{ i }}'>
+                                    <i></i><span>{{ i }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    <section class="sky-form">
+                        <h4>Страна:</h4>
+                        <div class="row1 scroll-pane">
+                            <div class="col col-4">
+                                {% for i in filter_fields.country %}
+                                <label id="checker" class="deactive_checker checkbox">
+                                    <input type="checkbox" name='country' id='country' value='{{ i }}'>
+                                    <i></i><span>{{ i }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    <section class="sky-form">
+                        <h4>Разрешающая способность матрицы:</h4>
+                        <div class="row1 scroll-pane">
+                            <div class="col col-4">
+                                {% for i in filter_fields.matrix_resol %}
+                                <label id="checker" class="deactive_checker checkbox">
+                                    <input type="checkbox" name='matrix_resol' id='matrix_resol' value='{{ i }}'>
+                                    <i></i><span>{{ i }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    <section class="sky-form">
+                        <h4>Размер матрицы:</h4>
+                        <div class="row1 scroll-pane">
+                            <div class="col col-4">
+                                {% for i in filter_fields.matrix_size %}
+                                <label id="checker" class="deactive_checker checkbox">
+                                    <input type="checkbox" name='matrix_size' id='matrix_size' value='{{ i }}'>
+                                    <i></i><span>{{ i }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    <section class="sky-form">
+                        <h4>Элементов на страницу:{{ elements }}</h4>
+                        <div class="row1 scroll-pane">
+                            <div class="col col-4">
+                                <label id="radio_cheker_page" class="deactive_checker radio">
+                                    <input type="radio" name="pages_elements" id="pages_elements" value="3" checked='checked'>
+                                    <i></i>
+                                    <span>3</span>
+                                </label>
+                                <label id="radio_cheker_page" class="deactive_checker radio">
+                                    <input type="radio" name="pages_elements" id="pages_elements" value="6">
+                                    <i></i>
+                                    <span>6</span>
+                                </label>
+                                <label id="radio_cheker_page" class="deactive_checker radio">
+                                    <input type="radio" name="pages_elements" id="pages_elements" value="9">
+                                    <i></i>
+                                    <span>9</span>
+                                </label>
+                                <label id="radio_cheker_page" class="deactive_checker radio">
+                                    <input type="radio" name="pages_elements" id="pages_elements" value="12">
+                                    <i></i>
+                                    <span>12</span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <input type="submit" id='search' value="Найти" form="filter_photo"> 
+                        <br />
+                    </section>
+                </form>
             </div>
-	        <div class="filter_choice_block">
-                <h4>Цвет:</h4>
-                {% for i in filter_fields.color %}
-                    <label id="checker" class="deactive_checker">
-                        <input type="checkbox" name='color' id='color' value='{{ i }}'>
-                        <span>{{ i }}</span>
-                    </label>
-                {% endfor %}
-            </div>  
-            <div class="filter_choice_block">
-            <h4>Страна:</h4>
-                {% for i in filter_fields.country %}
-                    <label id="checker" class="deactive_checker">
-                        <input type="checkbox" name='country' id='country' value='{{ i }}'>
-                        <span>{{ i }}</span>
-                    </label>
-                {% endfor %}
-            </div>
-            <div class="filter_choice_block">
-                <h4>Разрешающая способность матрицы:</h4>
-                {% for i in filter_fields.matrix_resol %}
-                    <label id="checker" class="deactive_checker">
-                        <input type="checkbox" name='matrix_resol' id='matrix_resol' value='{{ i }}'>
-                        <span>{{ i }}</span>
-                    </label>
-                {% endfor %}
-            </div>
-            <div class="filter_choice_block">
-                <h4>Размер матрицы:</h4>
-                {% for i in filter_fields.matrix_size %}
-                    <label id="checker" class="deactive_checker">
-                        <input type="checkbox" name='matrix_size' id='matrix_size' value='{{ i }}'>
-                        <span>{{ i }}</span>
-                    </label>
-                {% endfor %}
-            </div>
-            <div id='radio_cheker_page_div'>
-                <h4>Элементов на страницу:{{ elements }}</h4>
-                <label id="radio_cheker_page" class="deactive_checker">
-                    <input type="radio" name="pages_elements" id="pages_elements" value="3" checked='checked'>
-                    <span>3</span>
-                </label>
-                <label  id="radio_cheker_page" class="deactive_checker">
-                    <input type="radio" name="pages_elements" id="pages_elements" value="6">
-                    <span>6</span>
-                </label>
-                <label  id="radio_cheker_page" class="deactive_checker">
-                    <input type="radio" name="pages_elements" id="pages_elements" value="9">
-                    <span>9</span>
-                </label>
-                <label  id="radio_cheker_page" class="deactive_checker">
-                    <input type="radio" name="pages_elements" id="pages_elements" value="12">
-                    <span>12</span>
-                </label>
-            </div>
-            <div>
-                <br />
-			    <input type="submit" id='search' value="Найти">
-	        </div>
-	    </form>
-    </div>
-
-
-
-    <div class="content clearfix">
-        <div class="pagination_block">
-        {% if is_paginated %}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <div>
-                    <span id="new_page" 
-                          url="{% url 'shop:paginate_next' %}" 
-                          value="{{ filter_dict }}" 
-                          page={{ page_obj.previous_page_number }}>
-                          «
-                    </span>
-                </div>
-            {% else %}
-              <div class="disabled"><span>&laquo;</span></div>
-            {% endif %}
-
-            {% for i in paginator.page_range %}
-                {% if page_obj.number == i %}
-                    <div class="active_pagination"><span>{{ i }}</span></div>
-                {% else %}
-                    <div>
-                        <span id="new_page" 
-                              url="{% url 'shop:paginate_next' %}" 
-                              value="{{ filter_dict }}" 
-                              page={{ i }}>
-                              {{ i }}
+        </div>
+        {% endcache %}
+        <div class="col-md-9 w_content">
+            {% if is_paginated %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li>
+                        <span aria-label="Previous" id="new_page" url="{% url 'shop:paginate_next' %}" value="{{ filter_dict }}" page={{ page_obj.previous_page_number }}>
+                          <span aria-hidden="true">&laquo;</span>
                         </span>
+                    </li>
+                    {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                    <li class="active_pagination"><span>{{ i }}</span></li>
+                    {% else %}
+                    <li>
+                        <a id="new_page" url="{% url 'shop:paginate_next' %}" value="{{ filter_dict }}" page={{ i }}>
+                                      {{ i }}
+                                </a>
+                    </li>
+                    {% endif %} {% endfor %} {% if page_obj.has_next %}
+                    <li>
+                        <a aria-label="Next" id="new_page" url="{% url 'shop:paginate_next' %}" value="{{ filter_dict }}" page={{ page_obj.next_page_number }}>
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+            </nav>
+            {% endif %} {% if latest_photo_list %}
+            <div class="list_position">
+                {% for position in latest_photo_list %}
+                <div class="grid1_of_4">
+                    <div class="content_box">
+                        <a href="{% url 'shop:detail' position.ids %}">
+                            <img src="{{ position.image_url.url }}" class="img-responsive" alt="" />
+                        </a>
+                        <h4><a href="{% url 'shop:detail' position.ids %}">{{ position.name_model }}</a></h4>
+                        <p class="text_prev">{{ position.text_prev }}</p>
+                        <div class="grid_1 simpleCart_shelfItem">
+                            <div class="item_add2"><span class="item_price"><h6>{{ position.price }} Руб. </h6></span></div>
+                            {% csrf_token %}
+                            <div id="add_to_cart" class="item_add" product_id="{{ position.ids }}" product_price="{{ position.price }}" url="{% url 'cart:add_product_front' %}">Добавить в корзину</div>
+                        </div>
                     </div>
-                {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-                <div>
-                    <span id="new_page" 
-                          url="{% url 'shop:paginate_next' %}" 
-                          value="{{ filter_dict }}" 
-                          page={{ page_obj.next_page_number }}>
-                          »
-                    </span>
                 </div>
+                {% endfor %}
+            </div>
             {% else %}
-                <div class="disabled"><span>&raquo;</span></div>
+            <p>По вашему запросу ничего не найдено</p>
             {% endif %}
         </div>
-        {% endif %}
     </div>
-        {% if latest_photo_list %}
-            <div class="list_position">
-            {% for position in latest_photo_list %}
-                <a href="{% url 'shop:detail' position.ids %}">
-                    <div class="position_box">
-                        <div class="model_name">
-                            {{ position.name_model }}
-                            
-                        </div> 
-                        <div class="position_photo">
-                            <img class="img_position" src="{{ position.image_url }}">
-                        </div>
-                        
-                        <div class="postition_price">{{ position.price }} Руб. </div>
-                        <div id="add_to_cart" class="button_buy">
-
-                            {% csrf_token %}
-                            <div style="display:none;" id="data_buy"  
-                            product_id="{{ position.ids }}" 
-                            product_price="{{ position.price }}" 
-                            url="{% url 'cart:add_product_front' %}"></div>
-
-                            Купить</div>
-                        <div class="tags_search">{{ position.color}}, {{ position.country}}</div>
-                    </div>
-                </a>
-            {% endfor %}
-            </div>
-        {% else %}
-            <p>No polls are available.</p>
-        {% endif %}
-    </div>
-{% endblock  %}
+</div>
+{% endblock %}

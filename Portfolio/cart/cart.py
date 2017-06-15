@@ -31,13 +31,18 @@ class Cart(object):
 
     def add(self, product, quantity=1, update_quantity=False):
         product_id = str(product.ids)
+        available = PhotoTech.objects.filter(ids=product_ids).values()[0]['available']
+        
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0,
                                      'price': str(product.price)}
-        if update_quantity:
+        if update_quantity: # Для функционала если указывается количество добавляемых товаров
             self.cart[product_id]['quantity'] = quantity
         else:
-            self.cart[product_id]['quantity'] += quantity
+            if quantity + 1 <= available: # Не будет добавлять сверх наличия
+                self.cart[product_id]['quantity'] += quantity
+            else:
+                pass
         self.save()
 
     # Сохранение данных в сессию
@@ -53,12 +58,10 @@ class Cart(object):
             self.save()
 
     def get_total_price(self):
-    	return sum(Decimal(item['price']) * item['quantity']
-                   for item in self.cart.values())
+        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
     def get_total_item_price(self, item_ids):
-        return int(self.cart[item_ids]['price']) *
-               int(self.cart[item_ids]['quantity'])
+        return int(self.cart[item_ids]['price']) * int(self.cart[item_ids]['quantity'])
 
     def get_total_item(self):
         return sum(item['quantity'] for item in self.cart.values())
@@ -69,11 +72,9 @@ class Cart(object):
 
 
     def remove_add(self, product_ids, readd):
-        available = PhotoTech.objects.filter(
-                    ids=product_ids).values()[0]['available']
+        available = PhotoTech.objects.filter(ids=product_ids).values()[0]['available']
 
-        if (readd == "+1") and 
-           (self.cart[product_ids]['quantity'] < available):
+        if (readd == "+1") and (self.cart[product_ids]['quantity'] < available):
             self.cart[product_ids]['quantity'] += 1
 
         if (readd == "-1") and (0 < self.cart[product_ids]['quantity']):

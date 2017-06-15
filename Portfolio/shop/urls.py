@@ -1,5 +1,4 @@
-
-
+from django.views.decorators.cache import cache_page
 from django.conf.urls import url
 from . import views
 
@@ -21,7 +20,10 @@ urlpatterns = [
     url(r'^password_reset/$', views.password_reload, name='password_restart'),
     url(r'^password_reset/done/$', views.success, name='password_reset_done'), 
     url(r'^password_reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)\
-    	/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        /(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', views.success_reset, name='password_reset_complete'),
+    url(r'^contact/$', views.contact_view, name='contact'),
+    url(r'^employer/$', views.employer_view, name='employer'),
+
 ]

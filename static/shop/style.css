@@ -1,6 +1,7 @@
 * {
 	margin: 0px;
 	padding: 0px;
+	
 }
 
 body {
@@ -12,7 +13,8 @@ footer {
 	max-width: 5000px;
 	height: 30px;
 	background: orange;
-
+	position: absolute;
+    bottom: 0;
 }
 
 a {
@@ -36,6 +38,7 @@ h4 {
 
 
 header {
+        min-height: 120px;
 	max-height: 120px;
 	height: 100%;
 	max-width: 1100px;
@@ -106,7 +109,6 @@ header {
 .wrapper_body {
 	background: white;
 	max-width: 1100px;
-	height: 100%;
     margin: 0 auto;
 	padding: 20px;
 	display: inline-flex;

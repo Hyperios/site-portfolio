@@ -1,0 +1,23 @@
+{% extends "shop/base.html" %} 
+{% load staticfiles %} {% load cache %}
+{% block content %}
+{% cache 300 employer %}
+<!--contact-->
+<div class="contact">
+    <div class="container">
+        <h3>Здесь будут размещены текстовые задания или другая информация необходимая для подтверждения профессональных навыков. Раздел еще дополняется.</h2>
+
+		<div class="certificates">
+			<h4>Сертификаты GeekBrains</h4>
+			<img class="loop_sertificate" src="{% static 'shop/images/sertificate_1.png' %}" alt="">
+			<img class="loop_sertificate" src="{% static 'shop/images/sertificate_2.png' %}" alt="">
+			<img class="loop_sertificate" src="{% static 'shop/images/sertificate_3.png' %}" alt="">
+			<img class="loop_sertificate" src="{% static 'shop/images/sertificate_4.png' %}" alt="">
+			<img class="loop_sertificate" src="{% static 'shop/images/sertificate_5.png' %}" alt="">
+
+		</div>
+    </div>
+</div>
+<!--//contact-->
+{% endcache %}
+{% endblock %}

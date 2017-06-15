@@ -1,0 +1,51 @@
+{% extends "shop/base.html" %} 
+{% load staticfiles %} {% load cache %}
+{% block content %}
+{% cache 300 contact %}
+<!--contact-->
+<div class="contact">
+    <div class="container">
+        <h2>Контакты</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d287532.3838210176!2d37.623569!3d55.735104!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1496572265580" ></iframe>
+        </div>
+        <div class="contact-infom">
+            <h4>Дополнительная информация:</h4>
+            <p>Вы можете связаться посредством электронной почты или просто позвонив мне на номер, просто представьтесь и скажите что пришли с сайта-портфолио.</p>
+        </div>
+        <div class="address">
+            <div class="col-md-4 address-grids">
+                <h4>Адрес :</h4>
+                <ul>
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    <p> Россия, Москва
+                    </p>
+                </ul>
+            </div>
+            <div class="col-md-4 address-grids">
+                <noindex>
+                    <h4>Номер телефона :</h4>
+                    <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span><img src="{% static 'shop/images/tel_numb.png' %}"></p>
+                </noindex>
+            </div>
+            <div class="col-md-4 address-grids">
+                <h4>Email :</h4>
+                <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="mailto:portamundos@gmail.com">portamundos@gmail.com</a></p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <!--<div class="contact-form">
+            <h4>Contact form</h4>
+            <form>
+                <input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+                <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                <input type="text" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
+                <textarea type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+                <button class="btn1">Submit</button>
+            </form>
+        </div> -->
+    </div>
+</div>
+<!--//contact-->
+{% endcache %}
+{% endblock %}

@@ -44,12 +44,12 @@
         // Toggle for filtering choices 
         $(document).on('click', '#checker', function(event) {
                 $(this).toggleClass(function() {
-                    if ($(this).is('.deactive_checker')) {
+                    if ($(this).is('.deactive_checker checkbox')) {
                             $(this).removeClass();
-                            return 'active_checker';
+                            return 'active_checker checkbox';
                         } else {
                             $(this).removeClass();
-                            return 'deactive_checker';
+                            return 'deactive_checker checkbox';
                             }
                 });
                 $(this).children('input').toggleAttr('checked', 'checked');
@@ -60,9 +60,9 @@
         // For radio input paginator
         $(document).on('click', '#radio_cheker_page', function(event) {
                 $('#radio_cheker_page_div').children('label').removeClass();
-                $('#radio_cheker_page_div').children('label').attr('class', 'deactive_checker');
+                $('#radio_cheker_page_div').children('label').attr('class', 'deactive_checker radio');
                 $('#radio_cheker_page_div').children('label').children('input').removeAttr('checked', 'checked');
-                $(this).attr('class', 'active_checker');
+                $(this).attr('class', 'active_checker radio');
                 $(this).children('input').attr('checked', 'checked');
         event.preventDefault();
         });
@@ -84,36 +84,17 @@
         });
 
         
-        // Login button
-        $(document).on('click', '#login_in', function(event) {
-            $(this).hide();
-            $('#messages').hide();
-            $('#login_form').removeClass('hide');
-        });
 
 
-        // Login responce for header login field
-        $("#username").change(function () {
-            var form = $(this).closest("#login_form");
-            $.ajax({
-                url: form.attr("login-user"),
-                data: form.serialize(),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.is_taken) {
-                        alert(data.error_message);
-                    }
-                }
-            });
-            event.preventDefault();
-        });
+
+
 
 
         // Total price for header cart
         $(document).on('click', '#add_to_cart', function(event) {
-            var url = $(this).children('div').attr('url');
-            var id = $(this).children('div').attr('product_id');
-            var price = $(this).children('div').attr('product_price');
+            var url = $(this).attr('url');
+            var id = $(this).attr('product_id');
+            var price = $(this).attr('product_price');
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -124,12 +105,12 @@
                     if (data) {
                         $('#cart_count').text(data['count']);
                         $('#cart_total_price').text(data['total_price']);
+                        $('#shopping-cart').css({'color':'red !important'}).delay(600).css({'color':'white !important'});
                     }
                 }
             });
             event.preventDefault();
         });
-
 
         // Filtering request new_page
         $(document).on('click', '#new_page', function(event) {
@@ -145,9 +126,8 @@
                         "pagekey" : pagekey
                       },
                 success: function (data) {
-                    $("html").html(data);
-                    $('#radio_cheker_page').attr('class', 'deactive_checker');
-                    $(this).attr('class', 'active_checker');
+                    var list = $(data).find('.col-md-9'); 
+                    $('.col-md-9').replaceWith(list);
                 }
             });
             event.preventDefault();
@@ -199,7 +179,8 @@
             });
             event.preventDefault();
         });
-
+        
+        $('.loop_sertificate').loupe();
     });   
 })(jQuery);
 

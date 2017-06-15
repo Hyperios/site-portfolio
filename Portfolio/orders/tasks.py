@@ -12,7 +12,7 @@ def OrderCreated(order_id):
     """
     order = Order.objects.get(id=order_id)
     subject = 'Заказ c номером {}'.format(order.id)
-    message = 'Дорогой, {}, вы успешно сделали заказ.\
+    message = 'Дорогой, {}, вы успешно сделали заказ. \n \
                Номер вашего заказа {}'.format(order.first_name, order.id)
-    mail_send = send_mail(subject, message, 'admin@example.com', [order.email])
+    mail_send = send_mail(subject, message, 'triugleman@yandex.ru', [order.email])
     return mail_send

@@ -1,0 +1,5 @@
+[2017-06-12 15:14:54,162: INFO/MainProcess] Connected to amqp://admin_broker:**@127.0.0.1:5672/broker_vh
+[2017-06-12 15:14:54,176: INFO/MainProcess] mingle: searching for neighbors
+[2017-06-12 15:14:55,185: INFO/MainProcess] mingle: all alone
+[2017-06-12 15:14:55,198: WARNING/MainProcess] celery1@li1525-128.members.linode.com ready.
+[2017-06-12 15:14:59,707: INFO/MainProcess] Events of group {task} enabled by remote.

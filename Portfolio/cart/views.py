@@ -1,8 +1,11 @@
+from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from shop.models import PhotoTech
 from .cart import Cart
 from .forms import CartAddProductForm
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
+from django.contrib.sessions.backends.db import SessionStore
 from django.views.decorators.csrf import csrf_protect
 from django.http import JsonResponse
 
@@ -82,3 +85,4 @@ def remove_all(request):
 	data = {}
 	data.update(update_cart_args(request))
 	return JsonResponse(data)
+
